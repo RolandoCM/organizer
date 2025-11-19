@@ -39,6 +39,21 @@ def organize_with_pattern(source: str, pattern: str):
 def organize_ends_with(source: str, suffix: str):
     typer.echo(f"Organizing files in {source} that end with {suffix}...")
     # Add logic to organize files that end with the given suffix here
+    files = os.listdir(source)
+    for file in files:
+        # Get the file name without extension
+        file_name =file.split('.')[0]
+        if file_name.endswith(suffix):
+            typer.echo(f"Moving file: {file}")
+            # Logic to move files that end with the given suffix into a subfolder
+            
+            target_folder = os.path.join(source, 'EndsWith_' + suffix)
+            if not os.path.exists(target_folder):
+                os.makedirs(target_folder)
+            os.rename(os.path.join(source, file), os.path.join(target_folder, file))
+            typer.echo(f"Moved {file} to {target_folder}.")
+        else:
+            typer.echo(f"Skipping file: {file}")
 @app.command()
 def organize_starts_with(source: str, target: str, prefix: str):
     typer.echo(f"Organizing files in {source} that start with {prefix}...")
