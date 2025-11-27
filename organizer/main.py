@@ -1,19 +1,31 @@
 import sys
 import os
 import typer
+from typing import Annotated as ann
 
 app = typer.Typer()
 
 photos_extensions = ('.jpg','.jpeg', '.png')
+documents_extentions = ('.pdf', '.docx', '.txt', '.xlsx', '.pptx', '.doc', '.xls', '.ppt', '.odt', '.ods', '.odp', '.xml')
 
 @app.command()
-def organize(type: str):
+def organize(type: ann[str, typer.Argument(help="type can be the following options [photos, ducuments]")], source: str):
     if type == "photos":
         typer.echo("Organizing photos...")
         # Add logic to organize photos here
     elif type == "documents":
         typer.echo("Organizing documents...")
-        # Add logic to organize documents here
+        files = os.listdir(source)
+        for file in files:
+            if file.endswith(documents_extentions):
+                typer.echo(f"Moving document file: {file}")
+                if not os.path.exists(os.path.join(source, 'Documents')):
+                    os.makedirs(os.path.join(source, 'Documents'))
+                os.rename(os.path.join(source, file), os.path.join(source, 'Documents', file))
+                typer.echo(f"Moved {file} to Documents folder.")
+            
+
+        
 @app.command()
 def organize_folders(source: str):
     typer.echo("Organizing folders...")
