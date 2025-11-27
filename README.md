@@ -1,4 +1,3 @@
-// ...existing code...
 # organizer
 
 Simple CLI utilities to organize files in a folder (photos, documents, and name-based grouping).
