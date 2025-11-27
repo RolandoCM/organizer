@@ -67,5 +67,4 @@ python -m organizer.main organize_starts_with files/ Invoices factura
 - Add tests under `tests/` to cover file movement behaviors.
 
 ## License
-No license specified. See `pyproject.toml` for project metadata.
-// ...existing code...
+MIT License
